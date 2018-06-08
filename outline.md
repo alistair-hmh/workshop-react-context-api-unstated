@@ -49,7 +49,7 @@ Demo: [Prop Drilling](https://codesandbox.io/s/q87kpjzlyj)
 
 Scenario: Reading Inventory
 
-![assets/IMG_20180530_135603.jpg](assets/IMG_20180530_135603.jpg)
+[![assets/IMG_20180530_135603.jpg](assets/IMG_20180530_135603.jpg)](assets/IMG_20180530_135603.jpg)
 
 ## The Context API - What is it?
 
@@ -60,7 +60,44 @@ Scenario: Reading Inventory
 - Consumer
 - CreateContext (provider/comsumer pair)
 
-Scenario:
+
+### Create Context
+
+```js
+const {Provider, Consumer} = React.createContext(defaultValue);
+```
+
+> Creates a `{ Provider, Consumer }` pair. When React renders a context Consumer, it will read the current context value from the closest matching Provider above it in the tree.
+> 
+> The defaultValue argument is only used by a Consumer when it does not have a matching Provider above it in the tree. This can be helpful for testing components in isolation without wrapping them. Note: passing undefined as a Provider value does not cause Consumers to use defaultValue.
+
+### Provider
+
+```js
+<Provider value={/* some value */}>
+```
+
+> A React component that allows Consumers to subscribe to context changes.
+> 
+> Accepts a value prop to be passed to Consumers that are descendants of this Provider. One Provider can be connected to many Consumers. Providers can be nested to override values deeper within the tree.
+
+### Consumer
+
+```js
+<Consumer>
+  {value => /* render something based on the context value */}
+</Consumer>
+```
+
+> A React component that subscribes to context changes.
+
+> Requires a function as a child. The function receives the current context value and returns a React node. The value argument passed to the function will be equal to the value prop of the closest Provider for this context above in the tree. If there is no Provider for this context above, the value argument will be equal to the defaultValue that was passed to createContext().
+
+### Demo
+
+Demo: [React Context API - Basic Theme Example](https://codesandbox.io/s/zrxql7n74x)
+
+## Real World Scenario
 
 - Your React app can switch between a two UI themes, eg: Night (Dark), Day (Light).
 - Every UI component in your React app will have to change it's color.
@@ -73,14 +110,26 @@ Demo: [React Context API - Extended Theme Example](https://codesandbox.io/s/4jxm
 	+ theme-button.js
 	+ index.js
 
-This is all well and good, but how can the deep button change state?
-
-
-
-
-
-## Don't use props for...
+## 🚨 Don't use props for...
 
 > **Note:** Don’t use context just to avoid passing props a few levels down. Stick to cases where the same data needs to be accessed in many components at multiple levels.  
 > - The React docs: https://reactjs.org/docs/context.html#when-to-use-context
+
+## 👣 Follow Along!
+
+⚠️ WARNING: What I'm about to show you, may not be the exact solution you should use in your prodution app. I am taking some shortcuts to help you understand how the React Context API is working internally.
+
+[Demo](https://codesandbox.io/s/2w7p9klkjj)
+
+## 👻 Challenge #1 
+
+🏀⚽️⚾️🏈 In teams...👌👍👊✊
+
+Your mission, should you choose to accept it:
+
+- Make `MyContext` a separate dependancy
+- Make `FooComponent` a separate dependancy
+
+- [Starter](https://codesandbox.io/s/q8r71qo4jj)
+- [Solution](https://codesandbox.io/s/3016prjqj5)
 
